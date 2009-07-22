@@ -67,7 +67,7 @@ alias dotup="git pull ~/dotrc"
 alias dotci="git commit ~/dotrc"
 
     # If this is an xterm set the title to user@host:dir
-    case $TERM in
+case $TERM in
     midpssh)
         export LANG=en_US.ISO-8859-1 # etc...
         ;;
@@ -76,7 +76,16 @@ alias dotci="git commit ~/dotrc"
         ;;
     *)
         ;;
-    esac
+esac
 
 
 PS1='\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]$PWD\[\033[32m\]\[\033[0m\] \\$ '
+
+# ssh agent + screen
+if [ -e $HOME/.screen_socket.ssh ]; then
+    rm $HOME/.screen_socket.ssh
+fi 
+ln -s $SSH_AUTH_SOCK $HOME/.screen_socket.ssh
+
+
+

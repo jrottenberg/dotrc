@@ -2,6 +2,9 @@ vbell on
 startup_message off
 
 
+
+setenv SSH_AUTH_SOCK $HOME/.screen_socket.ssh
+
 defscrollback 10000
 
 #caption always "%{gk} (%{yk}%H%{gk}) | %{= kc}%?%-Lw%?%{= kY}%n*%f %t%?(%u)%?%{= kc}%?%+Lw%?"

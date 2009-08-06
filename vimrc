@@ -89,7 +89,7 @@ autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^
 setlocal tabstop=4
 setlocal softtabstop=4
 setlocal shiftwidth=4
-setlocal textwidth=79
+" setlocal textwidth=79
 setlocal smarttab
 setlocal expandtab
 setlocal smartindent
@@ -162,7 +162,8 @@ au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
 " The following section contains suggested settings.  While in no way required
 " to meet coding standards, they are helpful.
 
-" Set the default file encoding to UTF-8: ``set encoding=utf-8``
+" Set the default file encoding to UTF-8: 
+set encoding=utf-8
 
 " Puts a marker at the beginning of the file to differentiate between UTF and
 " UCS encoding (WARNING: can trick shells into thinking a text file is actually

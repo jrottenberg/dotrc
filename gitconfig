@@ -1,0 +1,33 @@
+[color]
+    pager = true
+    ui = true
+    status = auto
+    diff = auto
+    branch = auto
+
+[alias]
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    lg = log
+    pom = push origin master
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[core]
+    editor = vim
+
+[apply]
+    whitespace = nowarn
+
+
+[user]
+    name = Julien Rottenberg
+    email = julien@rottenberg.info
+
+

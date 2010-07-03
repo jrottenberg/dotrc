@@ -10,6 +10,7 @@ defscrollback 10000
 #caption always "%{gk} (%{yk}%H%{gk}) | %{= kc}%?%-Lw%?%{= kY}%n*%f %t%?(%u)%?%{= kc}%?%+Lw%?"
 #hardstatus alwayslastline "%{= }%{+b g}%c %{-b g}%d/%m/%Y %{-b w}[%{+b r}%H %{-b r}load: %l%{w}] w:%{y}%n %{w}(%{y}%t%{w})"
 
+multiuser on
 
 hardstatus alwayslastline
 hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'

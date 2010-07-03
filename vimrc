@@ -12,9 +12,8 @@ set history=50          " keep 50 lines of command line history
 
 " Automatically indent based on file type: 
 filetype indent on
-filetype plugin indent on 
-" Keep indentation level from previous line: 
-set autoindent
+filetype plugin on 
+set nosmartindent
 
 " hilight the screen line of the cursor
 "set cursorline
@@ -40,9 +39,10 @@ highlight PmenuSel ctermfg=0 ctermbg=7
 set background=dark
 colorscheme elflord
 
-" hostname:/path/to/
-set title
-let &titlestring  = hostname() . ':' . '%{expand("%:p:~:h")}' 
+" fancy title string 
+set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)\ \ -\ %{hostname()}
+
+ 
 set laststatus=2
 
 "Syntax highlighting if appropriate
@@ -83,6 +83,12 @@ syn keyword pythonError         do
 " :cn, :cp (move around list of errors)
 autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+
+
+
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
 
 
 " PEP 8 

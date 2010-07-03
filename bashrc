@@ -16,8 +16,10 @@ export HISTCONTROL=ignoreboth
 
 export HISTTIMEFORMAT='%F %T '
 
-if [ -d ~/.bash_history ] ; then
+if [ ! -d ~/.bash_history ] ; then
+    mv ~/.bash_history ~/.bash_history_tmp
     mkdir ~/.bash_history 
+    mv ~/.bash_history_* ~/.bash_history
 fi
 export HISTFILE="$HOME/.bash_history/`hostname`"
 

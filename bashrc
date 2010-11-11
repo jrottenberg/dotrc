@@ -93,6 +93,8 @@ PS1="\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]\w\[\033[32m\]\[\033[0m\] \\$ "
 
 if [ -e /etc/bash_completion ]; then
     source /etc/bash_completion
+    complete -F _aptitude install remove
+
 fi 
 
 

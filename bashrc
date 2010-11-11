@@ -11,6 +11,8 @@ export GREP_OPTIONS='--color=auto'
 shopt -s checkwinsize
 
 
+
+export EDITOR=vi
 # History stuff
 export HISTCONTROL=ignoreboth
 

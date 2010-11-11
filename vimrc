@@ -37,7 +37,6 @@ highlight PmenuSel ctermfg=0 ctermbg=7
 
 
 set background=dark
-colorscheme elflord
 
 " fancy title string 
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)\ \ -\ %{hostname()}

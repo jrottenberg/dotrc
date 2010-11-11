@@ -27,7 +27,24 @@
 
 
 [user]
-    name = Julien Rottenberg
-    email = julien@rottenberg.info
+	name = Julien Rottenberg
+	email = julien@rottenberg.info
 
 
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 639
+	file-view-vpane-position = 878
+	main-window-view = HistoryView
+
+[instaweb]
+    port = 4321
+    httpd = webrick
+
+[web]
+    browser = chromium
+    
+
+[browser "chromium"]
+    cmd = /usr/lib/chromium-browser/chromium-browser

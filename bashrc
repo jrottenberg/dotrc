@@ -18,6 +18,23 @@ export HISTCONTROL=ignoreboth
 
 export HISTTIMEFORMAT='%F %T '
 
+# Nicer output for time commands
+#  $ time sleep 5
+#
+#
+# Elapsed time   : 0m5.001s
+# User mode      : 0m0.000s
+# System mode    : 0m0.000s
+# CPU percentage : 0.00
+
+TIMEFORMAT="
+
+Elapsed time   : %3lR
+User mode      : %3lU
+System mode    : %3lS
+CPU percentage : %P"
+
+
 if [ ! -d ~/.bash_history ] ; then
     mv ~/.bash_history ~/.bash_history_tmp
     mkdir ~/.bash_history 

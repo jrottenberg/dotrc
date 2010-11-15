@@ -106,7 +106,7 @@ case $TERM in
 esac
 
 
-PS1="\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]\w\[\033[32m\]\[\033[0m\] \\$ "
+export PS1="\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]\w\[\033[32m\]\[\033[0m\] \\$ "
 
 
 if [ -e /etc/bash_completion ]; then
@@ -117,3 +117,7 @@ fi
 
 # Spelling when running cd
 set cdspell
+
+
+PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
+

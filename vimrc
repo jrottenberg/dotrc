@@ -183,4 +183,5 @@ let python_highlight_all=1
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
-
+# Modeline are useful
+set modeline

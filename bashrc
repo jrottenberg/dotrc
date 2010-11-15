@@ -6,10 +6,13 @@
 
 export GREP_OPTIONS='--color=auto'
 
-
+## shopt FTW
 # Adjust terminal size on move
 shopt -s checkwinsize
-
+#  The ‘New Window’ Problem (bonus get a fancy title bar)
+shopt -s histappend
+# Auto correct folders... no more cd /ect/...
+shopt -s cdspell
 
 
 export EDITOR=vi
@@ -43,8 +46,6 @@ fi
 export HISTFILE="$HOME/.bash_history/`hostname`"
 
 
-#  The ‘New Window’ Problem (bonus get a fancy title bar)
-shopt -s histappend
 PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007";history -a;history -n'
 
 
@@ -114,4 +115,5 @@ if [ -e /etc/bash_completion ]; then
 
 fi 
 
-
+# Spelling when running cd
+set cdspell

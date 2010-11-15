@@ -115,9 +115,6 @@ if [ -e /etc/bash_completion ]; then
 
 fi 
 
-# Spelling when running cd
-set cdspell
-
 
 PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
 

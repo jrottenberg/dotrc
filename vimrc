@@ -1,6 +1,4 @@
-" $Date: 2008-02-02 01:14:11 -0500 (Sat, 02 Feb 2008) $
-" $Author: ju $
-"
+
 " use vim defaults
 set nocompatible 
 
@@ -183,5 +181,5 @@ let python_highlight_all=1
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
-# Modeline are useful
+" Modeline are useful
 set modeline

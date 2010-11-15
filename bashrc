@@ -6,10 +6,13 @@
 
 export GREP_OPTIONS='--color=auto'
 
-
+## shopt FTW
 # Adjust terminal size on move
 shopt -s checkwinsize
-
+#  The ‘New Window’ Problem (bonus get a fancy title bar)
+shopt -s histappend
+# Auto correct folders... no more cd /ect/...
+shopt -s cdspell
 
 
 export EDITOR=vi
@@ -17,6 +20,23 @@ export EDITOR=vi
 export HISTCONTROL=ignoreboth
 
 export HISTTIMEFORMAT='%F %T '
+
+# Nicer output for time commands
+#  $ time sleep 5
+#
+#
+# Elapsed time   : 0m5.001s
+# User mode      : 0m0.000s
+# System mode    : 0m0.000s
+# CPU percentage : 0.00
+
+TIMEFORMAT="
+
+Elapsed time   : %3lR
+User mode      : %3lU
+System mode    : %3lS
+CPU percentage : %P"
+
 
 if [ ! -d ~/.bash_history ] ; then
     mv ~/.bash_history ~/.bash_history_tmp
@@ -26,8 +46,6 @@ fi
 export HISTFILE="$HOME/.bash_history/`hostname`"
 
 
-#  The ‘New Window’ Problem (bonus get a fancy title bar)
-shopt -s histappend
 PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007";history -a;history -n'
 
 
@@ -88,7 +106,7 @@ case $TERM in
 esac
 
 
-PS1="\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]\w\[\033[32m\]\[\033[0m\] \\$ "
+export PS1="\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]\w\[\033[32m\]\[\033[0m\] \\$ "
 
 
 if [ -e /etc/bash_completion ]; then
@@ -97,4 +115,9 @@ if [ -e /etc/bash_completion ]; then
 
 fi 
 
+# Spelling when running cd
+set cdspell
+
+
+PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
 

@@ -72,7 +72,7 @@ alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami)
 
 
 
-alias dotup="git pull ~/dotrc"
+alias dotup="cd ~/dotrc && git pull origin master && cd -"
 alias dotci="git commit ~/dotrc"
 
 # If this is an xterm set the title to user@host:dir

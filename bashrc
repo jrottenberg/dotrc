@@ -46,7 +46,8 @@ fi
 export HISTFILE="$HOME/.bash_history/`hostname`"
 
 
-PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007";history -a;history -n'
+#PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007";history -a;history -n'
+PROMPT_COMMAND='history -a'
 
 
 if [ -d ~/bin ] ; then

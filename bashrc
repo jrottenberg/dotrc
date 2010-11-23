@@ -91,7 +91,7 @@ alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami)
 
 
 
-alias dotup="git pull ~/dotrc"
+alias dotup="cd ~/dotrc && git pull origin master && cd -"
 alias dotci="git commit ~/dotrc"
 
 # If this is an xterm set the title to user@host:dir
@@ -115,9 +115,6 @@ if [ -e /etc/bash_completion ]; then
     complete -F _aptitude install remove
 
 fi 
-
-# Spelling when running cd
-set cdspell
 
 
 PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin

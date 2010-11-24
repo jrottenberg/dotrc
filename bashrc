@@ -107,7 +107,101 @@ case $TERM in
 esac
 
 
-export PS1="\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]\w\[\033[32m\]\[\033[0m\] \\$ "
+
+# Adapted from Bash-it https://github.com/revans/bash-it/
+SCM_THEME_PROMPT_DIRTY=' ✗'
+SCM_THEME_PROMPT_CLEAN=' ✓'
+SCM_THEME_PROMPT_PREFIX='|'
+SCM_THEME_PROMPT_SUFFIX='|'
+
+GIT='git'
+SCM_GIT_CHAR='±'
+
+SVN='svn'
+SCM_SVN_CHAR='ی'
+
+SCM_NONE_CHAR=''
+
+
+function scm {
+  if [[ -d .git ]]; then SCM=$GIT
+  elif [[ -d .svn ]]; then SCM=$SVN
+  else SCM='NONE'
+  fi
+}
+
+function scm_char {
+  if [[ -z $SCM ]]; then scm; fi
+  [[ $SCM == $GIT ]] && echo $SCM_GIT_CHAR && return
+  [[ $SCM == $SVN ]] && echo $SCM_SVN_CHAR && return
+  echo $SCM_NONE_CHAR
+}
+
+function scm_prompt_info {
+  if [[ -z $SCM ]]; then scm; fi
+  [[ $SCM == $GIT ]] && git_prompt_info && return
+  [[ $SCM == $SVN ]] && svn_prompt_info && return
+}
+
+# Stolen from Steve Losh
+# left in for backwards-compatibility
+function prompt_char {
+    char=$(scm_char);
+    echo -e "$char"
+}
+
+
+function git_prompt_info {
+  if [[ -n $(git status -s 2> /dev/null |grep -v ^# |grep -v "working directory clean") ]]; then
+      state=${GIT_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
+  else
+      state=${GIT_THEME_PROMPT_CLEAN:-$SCM_THEME_PROMPT_CLEAN}
+  fi
+  prefix=${GIT_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
+  suffix=${GIT_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+
+  echo -e " $(scm_char)$prefix${ref#refs/heads/}$state$suffix"
+}
+
+function svn_prompt_info {
+  if [[ -n $(svn status 2> /dev/null) ]]; then
+      state=${SVN_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
+  else
+      state=${SVN_THEME_PROMPT_CLEAN:-$SCM_THEME_PROMPT_CLEAN}
+  fi
+  prefix=${SVN_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
+  suffix=${SVN_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
+  ref=$(svn info 2> /dev/null | awk -F/ '/^URL:/ { for (i=0; i<=NF; i++) { if ($i == "branches" || $i == "tags" ) { print $(i+1); break }; if ($i == "trunk") { print $i; break } } }') || return
+
+  [[ -z $ref ]] && return
+  echo -e "$(scm_char)$prefix$ref$state$suffix"
+}
+
+blue=$'\e[0;34m'
+black=$'\e[0;30m'
+red=$'\e[0;31m'
+normal=$'\e[00m'
+reset_color=$'\e[39m'
+bold_black=$'\e[1;30m'
+white=$'\e[1;37m'
+
+
+
+prompt_setter() {
+  # Save history
+  history -a
+  history -c
+  history -r
+  PS1="\[$bold_black\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info) \\$\[$reset_color\] "
+  PS2='> '
+  PS4='+ '
+}
+
+PROMPT_COMMAND=prompt_setter
+
+
+#export PS1="\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]\w\[\033[32m\]\[\033[0m\] \\$ "
 
 
 if [ -e /etc/bash_completion ]; then

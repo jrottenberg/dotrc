@@ -94,18 +94,22 @@ alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami)
 alias dotup="cd ~/dotrc && git pull origin master && cd -"
 alias dotci="git commit ~/dotrc"
 
-# If this is an xterm set the title to user@host:dir
+# If this is an xterm set the title to host:dir
+# http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
 case $TERM in
-    midpssh)
-        export LANG=en_US.ISO-8859-1 # etc...
-        ;;
-    xterm*)
-        PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007"'
-        ;;
-    *)
-        ;;
-esac
+  [xkE]term*|rxvt*|cygwin)
+    title_seq="\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
 
+    #title_seq='\e]0;%s\007'
+    ;;
+  screen*)
+    # only set the "screen"window title
+    title_seq='\ek%s\e\\'
+    ;;
+  *)
+    title_seq=''
+    ;;
+esac
 
 
 # Adapted from Bash-it https://github.com/revans/bash-it/
@@ -186,6 +190,7 @@ reset_color=$'\e[39m'
 bold_black=$'\e[1;30m'
 white=$'\e[1;37m'
 
+xtitle() { [ "$title_seq" ] && printf "$title_seq" "$*"; }
 
 
 prompt_setter() {
@@ -193,9 +198,10 @@ prompt_setter() {
   history -a
   history -c
   history -r
-  PS1="\[$bold_black\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info) \\$\[$reset_color\] "
+  PS1="\[$bold_black\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info)\[$reset_color\] \\$ "
   PS2='> '
   PS4='+ '
+  echo -ne "\033]0;${HOSTNAME}: ${PWD/#$HOME/~}\007"
 }
 
 PROMPT_COMMAND=prompt_setter

@@ -4,11 +4,18 @@ $include /etc/inputrc
 
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
+# Keep hidden files hidden when doing, for example, cp ~/ Tab:
+# cp ~/. Tab will match hidden files
 set match-hidden-files off
+
 set page-completions off
 set completion-query-items 350
 set show-all-if-ambiguous on
-set visible-stats on          # List ls -F for completion
+set mark-symlinked-directories on
+set completion-ignore-case on
+
+# When listing possible file completions, put / after directory names and * after programs
+set visible-stats on          
 
 # mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
 "\e[5C": forward-word
@@ -16,3 +23,10 @@ set visible-stats on          # List ls -F for completion
 "\e\e[C": forward-word
 "\e\e[D": backward-word
 
+#"\t": menu-complete  
+
+$if Bash
+  # do history expansion when space entered
+  # !cd <-- expansion on space 
+  Space: magic-space
+$endif

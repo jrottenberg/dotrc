@@ -62,14 +62,14 @@ if [ -d ~/bin ] ; then
     PATH="~/bin:${PATH}"
 fi
 
-PAGER="less"
-LESS="-niSRFX"  # n supppres line numbers
+export LESS="-niSRFX"  # n supppres line numbers
                 # i search ignores case
                 # S scroll horizontally
                 # R interpret color escape sequences
                 # F quit if one screen
                 # X no init
 
+export PAGER="less"
 
 # mysql nice promp user@server : schema
 export MYSQL_PS1="(\u@\h):[\d]> "

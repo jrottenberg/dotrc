@@ -1,5 +1,5 @@
 
-" use vim defaults
+" use vim defaults, no vi's
 set nocompatible 
 
 set history=50          " keep 50 lines of command line history

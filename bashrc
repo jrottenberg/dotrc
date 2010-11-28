@@ -14,8 +14,16 @@ shopt -s histappend
 # Auto correct folders... no more cd /ect/...
 shopt -s cdspell
 
+# Instead of checking for the existence and location of vim repeatedly, let's do it once and save the results.
+if VIMLOC=`which vim 2> /dev/null`; then
+  EDITOR=vim
+  alias vi=vim
+else
+  EDITOR=vi
+fi
 
-export EDITOR=vi
+
+export EDITOR
 # History stuff
 export HISTCONTROL=ignoreboth
 
@@ -54,14 +62,14 @@ if [ -d ~/bin ] ; then
     PATH="~/bin:${PATH}"
 fi
 
-PAGER="less"
-LESS="-niSRFX"  # n supppres line numbers
+export LESS="-niSRFX"  # n supppres line numbers
                 # i search ignores case
                 # S scroll horizontally
                 # R interpret color escape sequences
                 # F quit if one screen
                 # X no init
 
+export PAGER="less"
 
 # mysql nice promp user@server : schema
 export MYSQL_PS1="(\u@\h):[\d]> "

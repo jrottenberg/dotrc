@@ -61,7 +61,7 @@ alias h='history'
 
 alias search='aptitude search'
 alias show='aptitude show'
-alias install='sudo aptitude install'
+alias install='sudo apt-get install'
 alias remove='sudo aptitude remove'
 alias update='sudo apt-get update'
 alias upgrade='sudo aptitude safe-upgrade'

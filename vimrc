@@ -1,7 +1,5 @@
-" $Date: 2008-02-02 01:14:11 -0500 (Sat, 02 Feb 2008) $
-" $Author: ju $
-"
-" use vim defaults
+
+" use vim defaults, no vi's
 set nocompatible 
 
 set history=50          " keep 50 lines of command line history
@@ -37,7 +35,6 @@ highlight PmenuSel ctermfg=0 ctermbg=7
 
 
 set background=dark
-colorscheme elflord
 
 " fancy title string 
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)\ \ -\ %{hostname()}
@@ -184,4 +181,5 @@ let python_highlight_all=1
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
-
+" Modeline are useful
+set modeline

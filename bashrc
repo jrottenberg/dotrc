@@ -165,11 +165,6 @@ function prompt_char {
 
 
 function git_prompt_info {
-  if [[ -n $(git status -s 2> /dev/null |grep -v ^# |grep -v "working directory clean") ]]; then
-      state=${GIT_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
-  else
-      state=${GIT_THEME_PROMPT_CLEAN:-$SCM_THEME_PROMPT_CLEAN}
-  fi
   prefix=${GIT_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
   suffix=${GIT_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
@@ -178,17 +173,12 @@ function git_prompt_info {
 }
 
 function svn_prompt_info {
-  if [[ -n $(svn status 2> /dev/null) ]]; then
-      state=${SVN_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
-  else
-      state=${SVN_THEME_PROMPT_CLEAN:-$SCM_THEME_PROMPT_CLEAN}
-  fi
   prefix=${SVN_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
   suffix=${SVN_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
   ref=$(svn info 2> /dev/null | awk -F/ '/^URL:/ { for (i=0; i<=NF; i++) { if ($i == "branches" || $i == "tags" ) { print $(i+1); break }; if ($i == "trunk") { print $i; break } } }') || return
 
   [[ -z $ref ]] && return
-  echo -e "$(scm_char)$prefix$ref$state$suffix"
+  echo -e " $(scm_char)$prefix$ref$state$suffix"
 }
 
 blue=$'\e[0;34m'

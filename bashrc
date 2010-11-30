@@ -24,10 +24,6 @@ fi
 
 
 export EDITOR
-# History stuff
-export HISTCONTROL=ignoreboth
-
-export HISTTIMEFORMAT='%F %T '
 
 # Nicer output for time commands
 #  $ time sleep 5
@@ -46,16 +42,34 @@ System mode    : %3lS
 CPU percentage : %P"
 
 
+# History stuff
+export HISTCONTROL=ignoreboth
+export HISTTIMEFORMAT='%F %T '
+export HISTSIZE=9000
+export HISTFILESIZE=$HISTSIZE
+
 if [ ! -d ~/.bash_history ] ; then
     mv ~/.bash_history ~/.bash_history_tmp
     mkdir ~/.bash_history 
     mv ~/.bash_history_* ~/.bash_history
 fi
+
+history() {
+  _bash_history_sync
+  builtin history "$@"
+}
+
+_bash_history_sync() {
+  builtin history -a         #[1]
+  HISTFILESIZE=$HISTFILESIZE #[2]
+  builtin history -c         #[3]
+  builtin history -r         #[4]
+}
+
+
 export HISTFILE="$HOME/.bash_history/`hostname`"
 
 
-#PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007";history -a;history -n'
-PROMPT_COMMAND='history -a'
 
 
 if [ -d ~/bin ] ; then
@@ -194,9 +208,7 @@ xtitle() { [ "$title_seq" ] && printf "$title_seq" "$*"; }
 
 prompt_setter() {
   # Save history
-  history -a
-  history -c
-  history -r
+  _bash_history_sync
   PS1="\[$bold_black\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info)\[$reset_color\] \\$ "
   PS2='> '
   PS4='+ '

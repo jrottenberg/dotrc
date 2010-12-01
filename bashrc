@@ -91,9 +91,9 @@ alias h='history'
 alias search='aptitude search'
 alias show='aptitude show'
 alias install='sudo apt-get install'
-alias remove='sudo aptitude remove'
+alias remove='sudo apt-get remove'
 alias update='sudo apt-get update'
-alias upgrade='sudo aptitude safe-upgrade'
+alias upgrade='sudo apt-get safe-upgrade'
 
 alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami) in directory $(pwd)."'
 

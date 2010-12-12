@@ -38,7 +38,7 @@
 	main-window-geometry = 0x0+0+0
 	history-view-vpane-position = 639
 	file-view-vpane-position = 878
-	main-window-view = HistoryView
+	main-window-view = FileView
 
 [instaweb]
     port = 4321

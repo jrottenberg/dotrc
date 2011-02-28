@@ -107,7 +107,7 @@ alias show='aptitude show'
 alias install='sudo apt-get install'
 alias remove='sudo apt-get remove'
 alias update='sudo apt-get update'
-alias upgrade='sudo apt-get safe-upgrade'
+alias upgrade='sudo apt-get upgrade'
 
 alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami) in directory $(pwd)."'
 
@@ -227,6 +227,10 @@ if [ -e /etc/bash_completion ]; then
 
 fi 
 
+# Load machine specific data (aws, rcks keys)
+if [ -e ~/.bash_local ]; then
+    source ~/.bash_local
+fi
+
 
 PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
-

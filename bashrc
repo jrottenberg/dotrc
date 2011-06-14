@@ -207,7 +207,6 @@ xtitle() { [ "$title_seq" ] && printf "$title_seq" "$*"; }
 
 alias c=' printf "\33[2J"'
 
-
 prompt_setter() {
   # Save history
   _bash_history_sync
@@ -233,5 +232,6 @@ fi
 if [ -e ~/.bash_local ]; then
     source ~/.bash_local
 fi
+
 
 PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin

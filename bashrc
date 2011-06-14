@@ -229,12 +229,9 @@ if [ -e /etc/bash_completion ]; then
 
 fi 
 
-# Load machine specifi data (EC2, rackspace keys)
+# Load machine specific data (aws, rcks keys)
 if [ -e ~/.bash_local ]; then
     source ~/.bash_local
-
 fi
 
-
 PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
-

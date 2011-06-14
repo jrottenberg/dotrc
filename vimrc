@@ -183,3 +183,9 @@ au BufWinEnter * silent loadview
 
 " Modeline are useful
 set modeline
+
+" Syntactic : https://github.com/uggedal/syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+

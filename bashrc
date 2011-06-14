@@ -107,7 +107,7 @@ alias show='aptitude show'
 alias install='sudo apt-get install'
 alias remove='sudo apt-get remove'
 alias update='sudo apt-get update'
-alias upgrade='sudo apt-get safe-upgrade'
+alias upgrade='sudo apt-get upgrade'
 
 alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami) in directory $(pwd)."'
 
@@ -205,6 +205,8 @@ white=$'\e[1;37m'
 
 xtitle() { [ "$title_seq" ] && printf "$title_seq" "$*"; }
 
+alias c=' printf "\33[2J"'
+
 
 prompt_setter() {
   # Save history
@@ -226,6 +228,12 @@ if [ -e /etc/bash_completion ]; then
     complete -F _aptitude install remove
 
 fi 
+
+# Load machine specifi data (EC2, rackspace keys)
+if [ -e ~/.bash_local ]; then
+    source ~/.bash_local
+
+fi
 
 
 PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin

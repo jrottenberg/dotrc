@@ -15,7 +15,7 @@ shopt -s histappend
 shopt -s cdspell
 
 # Instead of checking for the existence and location of vim repeatedly, let's do it once and save the results.
-if VIMLOC=`which vim 2> /dev/null`; then
+if type -t vim > /dev/null; then
   EDITOR=vim
   alias vi=vim
 else
@@ -233,5 +233,9 @@ if [ -e ~/.bash_local ]; then
     source ~/.bash_local
 fi
 
+if type -t gem > /dev/null
+    then PATH=${PATH}:$(gem env gemdir)/bin
+fi
 
-PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
+
+PATH=${PATH}:/usr/local/sbin:/usr/sbin:/sbin

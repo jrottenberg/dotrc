@@ -76,6 +76,11 @@ if [ -d ~/bin ] ; then
     PATH="~/bin:${PATH}"
 fi
 
+if [ `which gem` ]; then
+    PATH="`gem env gemdir`/bin:${PATH}"
+fi    
+
+
 export LESS="-niSRFX"  # n supppres line numbers
                 # i search ignores case
                 # S scroll horizontally
@@ -107,7 +112,8 @@ alias show='aptitude show'
 alias install='sudo apt-get install'
 alias remove='sudo apt-get remove'
 alias update='sudo apt-get update'
-alias upgrade='sudo apt-get safe-upgrade'
+alias upgrade='sudo apt-get upgrade'
+alias uu='update && upgrade'
 
 alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami) in directory $(pwd)."'
 

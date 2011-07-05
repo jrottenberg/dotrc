@@ -60,8 +60,8 @@ syn on
 " mkdir -p ~/.vim/.{backup,swap}
 set backup
 set swapfile
-set backupdir=$HOME/.vim/.backup
-set directory=$HOME/.vim/.swap
+set backupdir=$HOME/.vim/.backup//
+set directory=$HOME/.vim/.swap//
 
 
 

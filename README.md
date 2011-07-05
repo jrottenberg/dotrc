@@ -1,4 +1,4 @@
-# Dortrc #
+# Dotrc #
 
 ## About ##
 
@@ -17,5 +17,21 @@ The goal of this project is to keep all my rc files in sync regardless of the co
 1. Enjoy !
 
 
-Note All your previous rc files (are saved with date suffix
+Note : All your previous rc files are saved with date suffix, ex :
+
+
+.bashrc.20110625-0049
+
+
+## Usage ##
+
+You should fork the project if you want to keep track of your files and have your own preferences ;-)
+
+New software that requires a config file ?
+
+1. Put that config file (minus the . in the dotrc fodlder)
+2. Run 
+
+     $ ~/dotrc/createSymLinks.sh
+
 

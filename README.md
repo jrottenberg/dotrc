@@ -34,9 +34,9 @@ New software that requires a config file ?
      $ ~/dotrc/createSymLinks.sh
 1. From any of your computer installation propagate the good stuff through git transport (git push, git pull). I've made few aliases to make it easy :
 
-    alias dotup="cd ~/dotrc && git pull origin master && cd -"
+    `alias dotup="cd ~/dotrc && git pull origin master && cd -"
     alias dotpush="cd ~/dotrc && git push && cd -"
-    alias dotci="git commit ~/dotrc"
+    alias dotci="git commit ~/dotrc"`
 
 
 

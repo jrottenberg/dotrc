@@ -8,11 +8,11 @@ The goal of this project is to keep all my rc files in sync regardless of the co
 
 1. Clone the project :
 
-    $ git clone git://github.com/jrottenberg/dotrc ~/dotrc
+    `$ git clone git://github.com/jrottenberg/dotrc ~/dotrc`
 
 1. Run the symlink helper :
 
-    $ ~/dotrc/createSymLinks.sh
+    `$ ~/dotrc/createSymLinks.sh`
 
 1. Enjoy !
 
@@ -30,13 +30,12 @@ New software that requires a config file ?
 
 1. Put that config file (minus the . in the dotrc fodlder)
 1. Run 
-
      $ ~/dotrc/createSymLinks.sh
 1. From any of your computer installation propagate the good stuff through git transport (git push, git pull). I've made few aliases to make it easy :
 
-    `alias dotup="cd ~/dotrc && git pull origin master && cd -"
-    alias dotpush="cd ~/dotrc && git push && cd -"
-    alias dotci="git commit ~/dotrc"`
+    `alias dotup="cd ~/dotrc && git pull origin master && cd -"`
+    `alias dotpush="cd ~/dotrc && git push && cd -"`
+    `alias dotci="git commit ~/dotrc"`
 
 
 
@@ -45,7 +44,7 @@ New software that requires a config file ?
 1. Run htop, the first time it will save default settings in ~/.htoprc
 1. Configure htop until ~/.htoprc describes really how you like it to be configured
 1. Copy .htoprc to the dotrc folder without the trailing dot
-       $ cp ~/.htoprc dotrc/htoptc
+       `$ cp ~/.htoprc dotrc/htoptrc`
 1. git add and commit the file so we can start track the change
 1. Run the createSymlinks script
 1. You now have that htop config 

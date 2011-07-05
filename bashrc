@@ -224,7 +224,7 @@ PROMPT_COMMAND=prompt_setter
 
 if [ -e /etc/bash_completion ]; then
     source /etc/bash_completion
-    complete -F _aptitude install remove
+    complete -F _apt_get install remove
 
 fi 
 

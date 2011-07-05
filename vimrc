@@ -57,6 +57,13 @@ set showmatch
 syn on 	
 
 
+" mkdir -p ~/.vim/.{backup,swap,undo}
+set backup
+set swapfile
+set backupdir=$HOME/.vim/.backup//,.
+set directory=$HOME/.vim/.swap//,.
+set undodir=$HOME/.vim/.undo//,.
+
 
 
 
@@ -183,3 +190,9 @@ au BufWinEnter * silent loadview
 
 " Modeline are useful
 set modeline
+
+" Syntactic : https://github.com/uggedal/syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+

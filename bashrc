@@ -15,7 +15,7 @@ shopt -s histappend
 shopt -s cdspell
 
 # Instead of checking for the existence and location of vim repeatedly, let's do it once and save the results.
-if VIMLOC=`which vim 2> /dev/null`; then
+if type -t vim > /dev/null; then
   EDITOR=vim
   alias vi=vim
 else
@@ -72,14 +72,6 @@ export HISTFILE="$HOME/.bash_history/`hostname`"
 
 
 
-if [ -d ~/bin ] ; then
-    PATH="~/bin:${PATH}"
-fi
-
-if [ `which gem` ]; then
-    PATH="`gem env gemdir`/bin:${PATH}"
-fi    
-
 
 export LESS="-niSRFX"  # n supppres line numbers
                 # i search ignores case
@@ -120,7 +112,7 @@ alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami)
 
 
 alias dotup="cd ~/dotrc && git pull origin master && cd -"
-alias dotpush="cd ~/dotrc && git pull && cd -"
+alias dotpush="cd ~/dotrc && git push origin master  && cd -"
 alias dotci="git commit ~/dotrc"
 
 # If this is an xterm set the title to host:dir
@@ -211,6 +203,7 @@ white=$'\e[1;37m'
 
 xtitle() { [ "$title_seq" ] && printf "$title_seq" "$*"; }
 
+alias c=' printf "\33[2J"'
 
 prompt_setter() {
   # Save history
@@ -229,10 +222,22 @@ PROMPT_COMMAND=prompt_setter
 
 if [ -e /etc/bash_completion ]; then
     source /etc/bash_completion
-    complete -F _aptitude install remove
+    complete -F _apt_get install remove
 
 fi 
 
+# Load machine specific data (aws, rcks keys)
+if [ -e ~/.bash_local ]; then
+    source ~/.bash_local
+fi
 
-PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
+if type -t gem > /dev/null
+    then PATH=${PATH}:$(gem env gemdir)/bin
+fi
 
+if [ -d ~/bin ] ; then
+    PATH="~/bin:${PATH}"
+fi
+
+
+PATH=${PATH}:/usr/local/sbin:/usr/sbin:/sbin

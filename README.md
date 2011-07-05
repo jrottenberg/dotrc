@@ -45,6 +45,7 @@ New software that requires a config file ?
 1. Configure htop until ~/.htoprc describes really how you like it to be configured
 1. Copy .htoprc to the dotrc folder without the trailing dot
        `$ cp ~/.htoprc dotrc/htoptrc`
-1. git add and commit the file so we can start track the change
+1. git add and commit the file so we can start tracking the change
 1. Run the createSymlinks script
-1. You now have that htop config 
+1. You now have that htop configure to your liking everywhere you ran the createSymlinks script
+

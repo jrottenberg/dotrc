@@ -62,8 +62,9 @@ set backup
 set swapfile
 set backupdir=$HOME/.vim/.backup//,.
 set directory=$HOME/.vim/.swap//,.
-set undodir=$HOME/.vim/.undo//,.
-
+:if version >= 730
+:  set undodir=$HOME/.vim/.undo//,.
+:endif
 
 
 

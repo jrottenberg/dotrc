@@ -76,6 +76,11 @@ if [ -d ~/bin ] ; then
     PATH="~/bin:${PATH}"
 fi
 
+if [ `which gem 2> /dev/null` ]; then
+    PATH="`gem env gemdir`/bin:${PATH}"
+fi    
+
+
 export LESS="-niSRFX"  # n supppres line numbers
                 # i search ignores case
                 # S scroll horizontally
@@ -101,6 +106,7 @@ alias lh='ls -lah'
 alias l='ls -CF'
 
 alias h='history'	
+bind -x '"\C-l":ls -l'
 
 alias search='aptitude search'
 alias show='aptitude show'
@@ -111,9 +117,9 @@ alias upgrade='sudo apt-get safe-upgrade'
 
 alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami) in directory $(pwd)."'
 
+alias svnmerge='svnmerge.py'
 
-
-alias dotup="cd ~/dotrc && git pull origin master && cd -"
+alias dotup="cd ~/dotrc && git pull origin master && cd - && source ~/.bashrc"
 alias dotpush="cd ~/dotrc && git pull && cd -"
 alias dotci="git commit ~/dotrc"
 
@@ -189,7 +195,7 @@ function git_prompt_info {
 function svn_prompt_info {
   prefix=${SVN_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
   suffix=${SVN_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
-  ref=$(svn info 2> /dev/null | awk -F/ '/^URL:/ { for (i=0; i<=NF; i++) { if ($i == "branches" || $i == "tags" ) { print $(i+1); break }; if ($i == "trunk") { print $i; break } } }') || return
+  ref=$(svn info 2> /dev/null | awk -F/ '/^URL:/ { for (i=0; i<=NF; i++) { if ($i == "branches" || $i == "tags" || $i == "modules" ) { print $(i+1); break }; if ($i == "trunk") { print $i; break } } }') || return
 
   [[ -z $ref ]] && return
   echo -e " $(scm_char)$prefix$ref$state$suffix"

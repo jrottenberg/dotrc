@@ -177,6 +177,11 @@ function prompt_char {
     echo -e "$char"
 }
 
+function virtualenv_prompt {
+  if [[ -n "$VIRTUAL_ENV" ]] ; then
+    echo -e " ($(basename $VIRTUAL_ENV)) "
+  fi
+}
 
 function git_prompt_info {
   prefix=${GIT_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
@@ -210,7 +215,7 @@ alias c=' printf "\33[2J"'
 prompt_setter() {
   # Save history
   _bash_history_sync
-  PS1="\[$bold_black\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info)\[$reset_color\] \\$ "
+  PS1="\[$bold_black\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info)\[$reset_color\]$(virtualenv_prompt)\\$ "
   PS2='> '
   PS4='+ '
   echo -ne "\033]0;${HOSTNAME}: ${PWD/#$HOME/~}\007"

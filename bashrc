@@ -93,10 +93,9 @@ alias mysql="mysql --pager"
 
 
 # enable color support of ls and also add handy aliases
-eval `dircolors -b`
-alias ls='ls --color=auto'
-alias dir='ls --color=auto --format=vertical'
-alias vdir='ls --color=auto --format=long'
+export CLICOLOR=1
+alias dir='ls  --format=vertical'
+alias vdir='ls  --format=long'
 alias ll='ls -la'
 alias la='ls -A'
 alias lh='ls -lah'
@@ -120,6 +119,9 @@ alias svnmerge='svnmerge.py'
 alias dotup="cd ~/dotrc && git pull origin master && cd -"
 alias dotpush="cd ~/dotrc && git push origin master  && cd -"
 alias dotci="git commit ~/dotrc"
+
+# http://unix.stackexchange.com/a/25329
+alias watch='watch '
 
 # If this is an xterm set the title to host:dir
 # http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
@@ -219,7 +221,7 @@ alias c=' printf "\33[2J"'
 prompt_setter() {
   # Save history
   _bash_history_sync
-  PS1="\[$bold_black\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info)\[$reset_color\]$(virtualenv_prompt)\\$ "
+  PS1="\[$bold_grey\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info)\[$reset_color\]$(virtualenv_prompt)\\$ "
   PS2='> '
   PS4='+ '
   echo -ne "\033]0;${HOSTNAME}: ${PWD/#$HOME/~}\007"

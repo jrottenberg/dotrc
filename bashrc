@@ -9,8 +9,6 @@ export GREP_OPTIONS='--color=auto'
 ## shopt FTW
 # Adjust terminal size on move
 shopt -s checkwinsize
-#  The ‘New Window’ Problem (bonus get a fancy title bar)
-shopt -s histappend
 # Auto correct folders... no more cd /ect/...
 shopt -s cdspell
 
@@ -48,36 +46,6 @@ export HISTTIMEFORMAT='%F %T '
 export HISTSIZE=9000
 export HISTFILESIZE=$HISTSIZE
 
-if [ ! -d ~/.bash_history ] ; then
-    mv ~/.bash_history ~/.bash_history_tmp
-    mkdir ~/.bash_history 
-    mv ~/.bash_history_* ~/.bash_history
-fi
-
-history() {
-  _bash_history_sync
-  builtin history "$@"
-}
-
-_bash_history_sync() {
-  builtin history -a         #[1]
-  HISTFILESIZE=$HISTFILESIZE #[2]
-  builtin history -c         #[3]
-  builtin history -r         #[4]
-}
-
-
-export HISTFILE="$HOME/.bash_history/`hostname`"
-
-
-
-
-
-if [ `which gem 2> /dev/null` ]; then
-    PATH="`gem env gemdir`/bin:${PATH}"
-fi    
-
-
 export LESS="-niSRFX"  # n supppres line numbers
                 # i search ignores case
                 # S scroll horizontally
@@ -101,7 +69,7 @@ alias la='ls -A'
 alias lh='ls -lah'
 alias l='ls -CF'
 
-alias h='history'	
+alias h='history'
 bind -x '"\C-l":ls -l'
 
 alias search='aptitude search'
@@ -114,7 +82,6 @@ alias uu='update && upgrade'
 
 alias clr='clear;echo "Currently logged in on $(hostname) : $(tty), as $(whoami) in directory $(pwd)."'
 
-alias svnmerge='svnmerge.py'
 
 alias dotup="cd ~/dotrc && git pull origin master && cd -"
 alias dotpush="cd ~/dotrc && git push origin master  && cd -"
@@ -141,71 +108,6 @@ case $TERM in
 esac
 
 
-# Adapted from Bash-it https://github.com/revans/bash-it/
-SCM_THEME_PROMPT_DIRTY=' ✗'
-SCM_THEME_PROMPT_CLEAN=' ✓'
-SCM_THEME_PROMPT_PREFIX='|'
-SCM_THEME_PROMPT_SUFFIX='|'
-
-GIT='git'
-SCM_GIT_CHAR='±'
-
-SVN='svn'
-SCM_SVN_CHAR='ی'
-
-SCM_NONE_CHAR=''
-
-
-function scm {
-  if [[ -d .git ]]; then SCM=$GIT
-  elif [[ -d .svn ]]; then SCM=$SVN
-  else SCM='NONE'
-  fi
-}
-
-function scm_char {
-  if [[ -z $SCM ]]; then scm; fi
-  [[ $SCM == $GIT ]] && echo $SCM_GIT_CHAR && return
-  [[ $SCM == $SVN ]] && echo $SCM_SVN_CHAR && return
-  echo $SCM_NONE_CHAR
-}
-
-function scm_prompt_info {
-  if [[ -z $SCM ]]; then scm; fi
-  [[ $SCM == $GIT ]] && git_prompt_info && return
-  [[ $SCM == $SVN ]] && svn_prompt_info && return
-}
-
-# Stolen from Steve Losh
-# left in for backwards-compatibility
-function prompt_char {
-    char=$(scm_char);
-    echo -e "$char"
-}
-
-function virtualenv_prompt {
-  if [[ -n "$VIRTUAL_ENV" ]] ; then
-    echo -e " ($(basename $VIRTUAL_ENV)) "
-  fi
-}
-
-function git_prompt_info {
-  prefix=${GIT_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
-  suffix=${GIT_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-
-  echo -e " $(scm_char)$prefix${ref#refs/heads/}$state$suffix"
-}
-
-function svn_prompt_info {
-  prefix=${SVN_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
-  suffix=${SVN_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
-  ref=$(svn info 2> /dev/null | awk -F/ '/^URL:/ { for (i=0; i<=NF; i++) { if ($i == "branches" || $i == "tags" || $i == "modules" ) { print $(i+1); break }; if ($i == "trunk") { print $i; break } } }') || return
-
-  [[ -z $ref ]] && return
-  echo -e " $(scm_char)$prefix$ref$state$suffix"
-}
-
 blue=$'\e[0;34m'
 black=$'\e[0;30m'
 red=$'\e[0;31m'
@@ -218,26 +120,6 @@ xtitle() { [ "$title_seq" ] && printf "$title_seq" "$*"; }
 
 alias c=' printf "\33[2J"'
 
-prompt_setter() {
-  # Save history
-  _bash_history_sync
-  PS1="\[$bold_grey\]\t \[$white\]\H\[$reset_color\]:\[$red\]\w/\[$reset_color\]$(scm_prompt_info)\[$reset_color\]$(virtualenv_prompt)\\$ "
-  PS2='> '
-  PS4='+ '
-  echo -ne "\033]0;${HOSTNAME}: ${PWD/#$HOME/~}\007"
-}
-
-PROMPT_COMMAND=prompt_setter
-
-
-#export PS1="\[\033[1m\]\H\[\033[0m\]: \[\033[31m\]\w\[\033[32m\]\[\033[0m\] \\$ "
-
-
-if [ -e /etc/bash_completion ]; then
-    source /etc/bash_completion
-    complete -F _apt_get install remove
-
-fi 
 
 # Load machine specific data (aws, rcks keys)
 if [ -e ~/.bash_local ]; then
@@ -254,3 +136,20 @@ fi
 
 
 PATH=${PATH}:/usr/local/sbin:/usr/sbin:/sbin
+
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
+
+if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+fi
+
+complete -C aws_completer aws
+
+alias bb='brew update && brew upgrade && brew list > ~/Dropbox/mac_install/brew.lst'
+alias bbcast='brew cask update && brew cask list > ~/Dropbox/mac_install/brew-cask.lst'
+
+export DOCKER_HOST=unix:///var/run/docker.sock
+export BUILD_NUMBER=0

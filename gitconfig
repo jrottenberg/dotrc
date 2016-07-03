@@ -44,9 +44,9 @@
     port = 4321
     httpd = webrick
 
-[web]
-    browser = chromium
-    
-
-[browser "chromium"]
-    cmd = /usr/lib/chromium-browser/chromium-browser
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+[push]
+	default = simple

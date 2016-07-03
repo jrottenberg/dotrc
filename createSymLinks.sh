@@ -6,7 +6,7 @@ DOTRC_DIR=$(echo $0 | sed -e 's/\(.*\)\/.*/\1/')
 DOTRC_FILE=$(echo $0 | sed -e 's/.*\///')
 [ "$DOTRC_DIR" = "." ] && DOTRC_DIR=$(pwd)
 
-for F in $(ls $DOTRC_DIR | grep -v $DOTRC_FILE)
+for F in $(ls $DOTRC_DIR | grep -v $DOTRC_FILE | grep -v README.md)
 do
 	if [ ! -h "$HOME/.$F" ]; then
 	    if [ -f "$HOME/.$F" ]; then 
